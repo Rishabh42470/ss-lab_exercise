@@ -1,22 +1,12 @@
-#include <stdio.h>
-#include <fcntl.h>
 #include <unistd.h>
 
 int main()
 {
-    int fd;
+    char buffer[100];
 
-    fd = creat("file.txt", 0644);
+    int n = read(0, buffer, 100);
 
-    if(fd == -1)
-    {
-        perror("creat");
-        return 1;
-    }
-
-    printf("File descriptor = %d\n", fd);
-
-    close(fd);
+    write(1, buffer, n);
 
     return 0;
 }

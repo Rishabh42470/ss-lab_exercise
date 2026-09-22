@@ -4,19 +4,29 @@
 
 int main()
 {
-    int fd;
+    int count = 0;
 
-    fd = creat("file.txt", 0644);
-
-    if(fd == -1)
+    while(1)
     {
-        perror("creat");
-        return 1;
+        for(int i = 0; i < 5; i++)
+        {
+            char filename[50];
+
+            sprintf(filename, "file%d.txt", count++);
+
+            int fd = open(filename, O_CREAT | O_RDWR, 0644);
+
+            if(fd == -1)
+            {
+                perror("open");
+                return 1;
+            }
+
+            printf("Created %s with FD %d\n", filename, fd);
+        }
+
+        sleep(2);
     }
-
-   // printf("File descriptor = %d\n", fd);
-
-    close(fd);
 
     return 0;
 }
